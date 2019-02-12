@@ -9,21 +9,21 @@ class Home extends Component{
         this.state = {
             recommend:[
                 {
-                    text:'非洲美女',
-                    imgurl:'img/g1.jpg'
+                    text:'流',
+                    imgurl:'img/g1(1).jpg'
                 },
                 {
-                    text:'俄罗斯美女',
-                    imgurl:'img/g3.jpg'
+                    text:'星',
+                    imgurl:'img/g1(2).jpg'
                 },{
-                    text:'中国靓仔',
-                    imgurl:'img/laoxie.jpg'
+                    text:'雨',
+                    imgurl:'img/g1(3).jpg'
                 },{
-                    text:'东南亚美女',
-                    imgurl:'img/malin.jpg'
+                    text:'落',
+                    imgurl:'img/g1(4).jpg'
                 },{
-                    text:'千锋小鲜肉',
-                    imgurl:'img/tiantian.jpg'
+                    text:'英',
+                    imgurl:'img/g1(5).jpg'
                 }
             ]
         }
