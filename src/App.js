@@ -3,33 +3,26 @@ import {Route,Link,NavLink,Switch,Redirect,withRouter} from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
-import Home from './components/Home';
-import List from './components/List';
-import Mine from './components/Mine';
-import Goods from './components/Goods';
+import Home  from  './components/Home';
+import Shop  from  './components/Shop';
+import List  from  './components/List';
+import Mine  from  './components/Mine';
+import Goods from  './components/Goods';
+import Cart  from  './components/Cart';
 
 // 引入ant-design（全部引入）
-// import { Menu, Icon } from 'antd';
-// import 'antd/dist/antd.css';
-
-// 引入Button组件（按需引入）
-// import Button from 'antd/lib/button';
-// import 'antd/lib/button/style';
-
-// 利用babel-plugin-import实现按需引入
-import { Menu, Icon } from 'antd';
-
+import { Menu, Icon,Badge } from 'antd';
+import 'antd/dist/antd.css';
 
 import './sass/page.scss';
 
-/*
-    <Route/>组件的职责：根据浏览器url匹配Route的path属性，渲染相应的componet
-    编程式导航
-        * 获取history对象
-            * 通过<Route/>渲染组件
-            * 通过withRouter高阶组件
-            * 
-*/
+import {ReactReduxContext,connect} from 'react-redux';
+import * as all from 'react-redux';
+console.log('react-redux:',all)
+
+// import store from './store';
+// console.log('App:',store.getState());
+
 
 class App extends React.Component{
     constructor(){
@@ -42,16 +35,26 @@ class App extends React.Component{
                     name:'Home',
                     icon:'home'
                 },{
-                    text:'列表',
+                    text:'9.9包邮',
+                    path:'/shop',
+                    name:'Shop',
+                    icon:'shopping-cart'
+                },{
+                    text:'分类',
                     path:'/list',
                     name:'List',
                     icon:'bars'
+                },{
+                    text:'收藏',
+                    path:'/cart',
+                    name:'Cart',
+                    icon:'shopping-cart'
                 },{
                     text:'我的',
                     path:'/mine',
                     name:'Mine',
                     icon:'user'
-                },
+                }
             ],
             current:'/home'
 
@@ -60,6 +63,10 @@ class App extends React.Component{
         // this绑定
         this.handleChange = this.handleChange.bind(this);
     }
+
+    // 设置静态属性，用户获取Provider提供的store数据
+    static contextType = ReactReduxContext;
+
     handleChange({ item, key, keyPath }){
         //两个问题：1、如何获取路由路径，2、如何获取history对象
         this.setState({
@@ -84,17 +91,12 @@ class App extends React.Component{
 
     }
     render(){
+        // 在组件中获取redux的state
+        // 通过this.props.cart,this.props.goods
+        console.log('App:',this)
         return (
             <div>
-                <h1>React Router路由演示</h1>
-                {/* <NavLink 
-                to="/home" 
-                activeClassName="current" 
-                activeStyle={{color:'#58bc58',fontWeight:'bold'}}>首页</NavLink>
-                <NavLink to="/list" activeClassName="current"
-                activeStyle={{color:'#58bc58',fontWeight:'bold'}}>列表</NavLink>
-                <NavLink to="/mine" activeClassName="current"
-                activeStyle={{color:'#58bc58',fontWeight:'bold'}}>我的</NavLink> */}
+
                 <Menu
                 mode="horizontal"
                 selectedKeys={[this.state.current]}
@@ -103,8 +105,11 @@ class App extends React.Component{
                     {
                         this.state.menu.map(menu=>{
                             return (
+
                                 <Menu.Item key={menu.path}>
-                                    <Icon type={menu.icon}/>{menu.text}
+                                    <Badge count={menu.name=='Cart'?this.props.goodslist.length:null}>
+                                        <Icon type={menu.icon}/>{menu.text}
+                                    </Badge>
                                 </Menu.Item>
                             )
                         })
@@ -112,8 +117,10 @@ class App extends React.Component{
                 </Menu>
                 <Switch>
                     <Route path="/home" component={Home}/>
+                    <Route path="/shop" cpmponent={Shop}/>
                     <Route path="/list" component={List}/>
                     <Route path="/mine" component={Mine}/>
+                    <Route path="/cart" component={Cart}/>
                     <Route path="/goods/:id" component={Goods}/>
                     <Redirect from="/" to="/home"/>
                     {/* <Route path="/" component={Home} exact/> */}
@@ -123,19 +130,28 @@ class App extends React.Component{
     }
 }
 
-
-App.contextTypes = {
-    router:PropTypes.object
+let mapStateToProps = (state)=>{
+    console.log('mapStateToProps:',state)
+    return {
+        // 把goodslist属性映射到App的props中
+        goodslist:state.cart.goodslist,
+        price:state.goods.price
+    }
 }
 
-// 利用withRouter高阶组件包装App组件
+let mapDispatchToProps = (dispatch)=>{
+    return {
+        addcart:(goods)=>{
+            dispatch({
+                type:'ADD_TO_CART',
+                payload:goods
+            })
+        }
+    }
+}
+
+App = connect(mapStateToProps,mapDispatchToProps)(App);
+
 App = withRouter(App);
 
-
-
 export default App;
-
-// 高阶组件的理解
-// WidthRouter = (App)=>{
-//     return <App history={xxxx}/>
-// }

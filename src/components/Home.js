@@ -9,21 +9,21 @@ class Home extends Component{
         this.state = {
             recommend:[
                 {
-                    text:'流',
-                    imgurl:'img/g1(1).jpg'
+                    text:'01',
+                    imgurl:'https://img.alicdn.com/imgextra/i4/2053469401/O1CN01vm11kZ2JJhuTYCmRk-2053469401.jpg'
                 },
                 {
-                    text:'星',
-                    imgurl:'img/g1(2).jpg'
+                    text:'02',
+                    imgurl:'https://img.alicdn.com/imgextra/i1/2508158775/O1CN01kV0ktx2EgzyObpSNt_!!2508158775.jpg'
                 },{
-                    text:'雨',
-                    imgurl:'img/g1(3).jpg'
+                    text:'03',
+                    imgurl:'https://img.alicdn.com/imgextra/i3/2508158775/O1CN01mBTKjQ2EgzyRmTDw4_!!2508158775.jpg'
                 },{
-                    text:'落',
-                    imgurl:'img/g1(4).jpg'
+                    text:'04',
+                    imgurl:'https://img.alicdn.com/imgextra/i2/2508158775/O1CN016jfM922EgzySBnxxl_!!2508158775.jpg'
                 },{
-                    text:'英',
-                    imgurl:'img/g1(5).jpg'
+                    text:'05',
+                    imgurl:'https://img.alicdn.com/imgextra/i2/2508158775/O1CN01ZuR6152EgzyP1SnKo_!!2508158775.jpg'
                 }
             ]
         }

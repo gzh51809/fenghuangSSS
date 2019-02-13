@@ -47,9 +47,9 @@ class GoodsList extends Component{
 
         goods = {
             id:goods.goods_id,
-            name:goods.goods_name,
-            price:goods.goods_price,
-            imgurl:goods.goods_image_url,
+            name:goods.goods_d_title,
+            price:goods.goods_yuanjia,
+            imgurl:goods.goods_pic,
             qty:1
         }
 
@@ -60,7 +60,7 @@ class GoodsList extends Component{
     }
     componentWillMount(){
         // 获取商品信息
-        axios.get('https://www.nanshig.com/mobile/index.php',{
+        axios.get('http://www.shenduzhekou.com/index.php?r=nine/listajax&n_id=58&page=1&cac_id=',{
             params:{
                 act:'goods',
                 op:'goods_list',
